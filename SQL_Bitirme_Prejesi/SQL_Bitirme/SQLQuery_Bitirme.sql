@@ -1,9 +1,8 @@
-use Bitirme_Odev;
 
 USE Bitirme_Odev;
 GO
 
--- Tabloları sil (varsa)
+-- TablolarÃ½ sil (varsa)
 IF OBJECT_ID('siparis_detay', 'U') IS NOT NULL DROP TABLE siparis_detay;
 IF OBJECT_ID('siparis', 'U') IS NOT NULL DROP TABLE siparis;
 IF OBJECT_ID('urun', 'U') IS NOT NULL DROP TABLE urun;
@@ -13,7 +12,7 @@ IF OBJECT_ID('satici', 'U') IS NOT NULL DROP TABLE satici;
 GO
 
 -- =====================================================
--- TABLO OLUŞTURMA
+-- TABLO OLUÃTURMA
 -- =====================================================
 
 -- 1. Kategori Tablosu
@@ -23,7 +22,7 @@ CREATE TABLE kategori(
 );
 GO
 
--- 2. Satıcı Tablosu
+-- 2. SatÃ½cÃ½ Tablosu
 CREATE TABLE satici(
     id INT PRIMARY KEY IDENTITY(1,1),
     ad NVARCHAR(100) NOT NULL,
@@ -31,7 +30,7 @@ CREATE TABLE satici(
 );
 GO
 
--- 3. Müşteri Tablosu
+-- 3. MÃ¼Ã¾teri Tablosu
 CREATE TABLE musteri(
     id INT PRIMARY KEY IDENTITY(1,1),
     ad NVARCHAR(100) NOT NULL,
@@ -42,7 +41,7 @@ CREATE TABLE musteri(
 );
 GO
 
--- 4. Ürün Tablosu
+-- 4. ÃœrÃ¼n Tablosu
 CREATE TABLE urun(
     id INT PRIMARY KEY IDENTITY(1,1),
     ad NVARCHAR(200) NOT NULL,
@@ -55,18 +54,18 @@ CREATE TABLE urun(
 );
 GO
 
--- 5. Sipariş Tablosu
+-- 5. SipariÃ¾ Tablosu
 CREATE TABLE siparis(
     id INT PRIMARY KEY IDENTITY(1,1),
     musteri_id INT NOT NULL,
     tarih DATE NOT NULL,
     toplam_tutar DECIMAL(10,2) NOT NULL,
-    odeme_turu NVARCHAR(100) NOT NULL CHECK (odeme_turu IN (N'Kredi Kartı', N'Banka Kartı', N'Kapıda Ödeme', N'Havale')),
+    odeme_turu NVARCHAR(100) NOT NULL CHECK (odeme_turu IN (N'Kredi KartÃ½', N'Banka KartÃ½', N'KapÃ½da Ã–deme', N'Havale')),
     FOREIGN KEY (musteri_id) REFERENCES musteri(id)
 );
 GO
 
--- 6. Sipariş Detayları Tablosu
+-- 6. SipariÃ¾ DetaylarÃ½ Tablosu
 CREATE TABLE siparis_detay(
     id INT PRIMARY KEY IDENTITY(1,1),
     siparis_id INT NOT NULL,
@@ -79,14 +78,14 @@ CREATE TABLE siparis_detay(
 GO
 
 -- =====================================================
--- VERİ EKLEME
+-- VERÃ EKLEME
 -- =====================================================
 
 -- Kategoriler
 INSERT INTO kategori (ad) VALUES
 (N'Elektronik'),
 (N'Giyim'),
-(N'Ev & Yaşam'),
+(N'Ev & YaÃ¾am'),
 (N'Kitap'),
 (N'Spor & Outdoor'),
 (N'Kozmetik'),
@@ -94,223 +93,223 @@ INSERT INTO kategori (ad) VALUES
 (N'Mobilya');
 GO
 
--- Satıcılar
+-- SatÃ½cÃ½lar
 INSERT INTO satici (ad, adres) VALUES
-(N'TechMaster A.Ş.', N'İstanbul, Kadıköy'),
-(N'ModaLife Ltd.', N'Ankara, Çankaya'),
-(N'HomeStore Tic.', N'İzmir, Bornova'),
-(N'KitapDünyası', N'İstanbul, Beyoğlu'),
-(N'SportZone', N'Antalya, Muratpaşa'),
-(N'BeautyShop', N'Bursa, Nilüfer'),
-(N'ToysWorld', N'İstanbul, Şişli'),
+(N'TechMaster A.Ã.', N'Ãstanbul, KadÃ½kÃ¶y'),
+(N'ModaLife Ltd.', N'Ankara, Ã‡ankaya'),
+(N'HomeStore Tic.', N'Ãzmir, Bornova'),
+(N'KitapDÃ¼nyasÃ½', N'Ãstanbul, BeyoÃ°lu'),
+(N'SportZone', N'Antalya, MuratpaÃ¾a'),
+(N'BeautyShop', N'Bursa, NilÃ¼fer'),
+(N'ToysWorld', N'Ãstanbul, ÃiÃ¾li'),
 (N'FurniturePlus', N'Ankara, Yenimahalle');
 GO
 
--- Müşteriler
+-- MÃ¼Ã¾teriler
 INSERT INTO musteri (ad, soyad, email, sehir, kayit_tarihi) VALUES
-(N'Ahmet', N'Yılmaz', N'ahmet.yilmaz@email.com', N'İstanbul', '2024-01-15'),
-(N'Ayşe', N'Demir', N'ayse.demir@email.com', N'Ankara', '2024-02-20'),
-(N'Mehmet', N'Kaya', N'mehmet.kaya@email.com', N'İzmir', '2024-03-10'),
-(N'Fatma', N'Şahin', N'fatma.sahin@email.com', N'İstanbul', '2024-03-25'),
-(N'Ali', N'Çelik', N'ali.celik@email.com', N'Bursa', '2024-04-05'),
+(N'Ahmet', N'YÃ½lmaz', N'ahmet.yilmaz@email.com', N'Ãstanbul', '2024-01-15'),
+(N'AyÃ¾e', N'Demir', N'ayse.demir@email.com', N'Ankara', '2024-02-20'),
+(N'Mehmet', N'Kaya', N'mehmet.kaya@email.com', N'Ãzmir', '2024-03-10'),
+(N'Fatma', N'Ãahin', N'fatma.sahin@email.com', N'Ãstanbul', '2024-03-25'),
+(N'Ali', N'Ã‡elik', N'ali.celik@email.com', N'Bursa', '2024-04-05'),
 (N'Zeynep', N'Arslan', N'zeynep.arslan@email.com', N'Antalya', '2024-04-15'),
-(N'Can', N'Öztürk', N'can.ozturk@email.com', N'İstanbul', '2024-05-01'),
-(N'Elif', N'Aydın', N'elif.aydin@email.com', N'Ankara', '2024-05-20'),
-(N'Burak', N'Yıldız', N'burak.yildiz@email.com', N'İzmir', '2024-06-10'),
-(N'Selin', N'Kurt', N'selin.kurt@email.com', N'İstanbul', '2024-06-25'),
-(N'Emre', N'Doğan', N'emre.dogan@email.com', N'Konya', '2024-07-01'),
-(N'Deniz', N'Koç', N'deniz.koc@email.com', N'Adana', '2024-07-15');
+(N'Can', N'Ã–ztÃ¼rk', N'can.ozturk@email.com', N'Ãstanbul', '2024-05-01'),
+(N'Elif', N'AydÃ½n', N'elif.aydin@email.com', N'Ankara', '2024-05-20'),
+(N'Burak', N'YÃ½ldÃ½z', N'burak.yildiz@email.com', N'Ãzmir', '2024-06-10'),
+(N'Selin', N'Kurt', N'selin.kurt@email.com', N'Ãstanbul', '2024-06-25'),
+(N'Emre', N'DoÃ°an', N'emre.dogan@email.com', N'Konya', '2024-07-01'),
+(N'Deniz', N'KoÃ§', N'deniz.koc@email.com', N'Adana', '2024-07-15');
 GO
 
--- Ürünler
+-- ÃœrÃ¼nler
 INSERT INTO urun (ad, fiyat, stok, kategori_id, satici_id) VALUES
 -- Elektronik
 (N'iPhone 15 Pro', 45999.99, 50, 1, 1),
 (N'Samsung Galaxy S24', 38999.99, 30, 1, 1),
 (N'MacBook Air M2', 52999.99, 20, 1, 1),
-(N'Sony WH-1000XM5 Kulaklık', 8999.99, 100, 1, 1),
+(N'Sony WH-1000XM5 KulaklÃ½k', 8999.99, 100, 1, 1),
 (N'iPad Air', 22999.99, 40, 1, 1),
 -- Giyim
 (N'Erkek Kot Pantolon', 599.99, 200, 2, 2),
-(N'Kadın Elbise', 899.99, 150, 2, 2),
-(N'Spor Ayakkabı', 1299.99, 80, 2, 2),
-(N'Kadın Ceket', 1499.99, 60, 2, 2),
--- Ev & Yaşam
+(N'KadÃ½n Elbise', 899.99, 150, 2, 2),
+(N'Spor AyakkabÃ½', 1299.99, 80, 2, 2),
+(N'KadÃ½n Ceket', 1499.99, 60, 2, 2),
+-- Ev & YaÃ¾am
 (N'Kahve Makinesi', 2499.99, 45, 3, 3),
-(N'Elektrikli Süpürge', 3999.99, 35, 3, 3),
+(N'Elektrikli SÃ¼pÃ¼rge', 3999.99, 35, 3, 3),
 (N'Tost Makinesi', 899.99, 70, 3, 3),
 -- Kitap
-(N'Suç ve Ceza', 89.99, 500, 4, 4),
+(N'SuÃ§ ve Ceza', 89.99, 500, 4, 4),
 (N'1984', 79.99, 300, 4, 4),
-(N'Simyacı', 69.99, 400, 4, 4),
+(N'SimyacÃ½', 69.99, 400, 4, 4),
 -- Spor
-(N'Yoga Matı', 299.99, 120, 5, 5),
-(N'Dambıl Seti 10kg', 599.99, 50, 5, 5),
-(N'Koşu Bandı', 8999.99, 15, 5, 5),
+(N'Yoga MatÃ½', 299.99, 120, 5, 5),
+(N'DambÃ½l Seti 10kg', 599.99, 50, 5, 5),
+(N'KoÃ¾u BandÃ½', 8999.99, 15, 5, 5),
 -- Kozmetik
-(N'Cilt Bakım Seti', 499.99, 200, 6, 6),
-(N'Parfüm', 899.99, 150, 6, 6),
+(N'Cilt BakÃ½m Seti', 499.99, 200, 6, 6),
+(N'ParfÃ¼m', 899.99, 150, 6, 6),
 -- Oyuncak
 (N'LEGO Star Wars', 1299.99, 80, 7, 7),
 (N'Barbie Bebek', 399.99, 100, 7, 7),
 -- Mobilya
-(N'Çalışma Masası', 3499.99, 25, 8, 8),
-(N'Ofis Koltuğu', 2999.99, 30, 8, 8);
+(N'Ã‡alÃ½Ã¾ma MasasÃ½', 3499.99, 25, 8, 8),
+(N'Ofis KoltuÃ°u', 2999.99, 30, 8, 8);
 GO
 
 -- =====================================================
--- SİPARİŞLER VE DETAYLARI
+-- SÃPARÃÃLER VE DETAYLARI
 -- =====================================================
 
--- Müşteri 1 (Ahmet) - 3 sipariş
+-- MÃ¼Ã¾teri 1 (Ahmet) - 3 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(1, '2024-06-15', 54999.98, N'Kredi Kartı');
+(1, '2024-06-15', 54999.98, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (1, 1, 1, 45999.99),
 (1, 4, 1, 8999.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(1, '2024-07-20', 3499.99, N'Kredi Kartı');
+(1, '2024-07-20', 3499.99, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (2, 23, 1, 3499.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(1, '2024-08-10', 1199.98, N'Banka Kartı');
+(1, '2024-08-10', 1199.98, N'Banka KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (3, 6, 2, 599.99);
 GO
 
--- Müşteri 2 (Ayşe) - 3 sipariş
+-- MÃ¼Ã¾teri 2 (AyÃ¾e) - 3 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(2, '2024-06-22', 40299.98, N'Kredi Kartı');
+(2, '2024-06-22', 40299.98, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (4, 2, 1, 38999.99),
 (4, 19, 1, 499.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(2, '2024-08-15', 899.99, N'Banka Kartı');
+(2, '2024-08-15', 899.99, N'Banka KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (5, 20, 1, 899.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(2, '2024-09-05', 239.97, N'Kapıda Ödeme');
+(2, '2024-09-05', 239.97, N'KapÃ½da Ã–deme');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (6, 13, 1, 89.99),
 (6, 14, 1, 79.99),
 (6, 15, 1, 69.99);
 GO
 
--- Müşteri 3 (Mehmet) - 2 sipariş
+-- MÃ¼Ã¾teri 3 (Mehmet) - 2 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(3, '2024-07-05', 53899.98, N'Kredi Kartı');
+(3, '2024-07-05', 53899.98, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (7, 3, 1, 52999.99),
 (7, 12, 1, 899.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(3, '2024-09-10', 38999.99, N'Kredi Kartı');
+(3, '2024-09-10', 38999.99, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (8, 2, 1, 38999.99);
 GO
 
--- Müşteri 4 (Fatma) - 3 sipariş
+-- MÃ¼Ã¾teri 4 (Fatma) - 3 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(4, '2024-06-18', 1799.98, N'Kapıda Ödeme');
+(4, '2024-06-18', 1799.98, N'KapÃ½da Ã–deme');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (9, 7, 2, 899.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(4, '2024-07-25', 6499.98, N'Kredi Kartı');
+(4, '2024-07-25', 6499.98, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (10, 11, 1, 3999.99),
 (10, 10, 1, 2499.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(4, '2024-08-20', 999.98, N'Banka Kartı');
+(4, '2024-08-20', 999.98, N'Banka KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (11, 19, 2, 499.99);
 GO
 
--- Müşteri 5 (Ali) - 2 sipariş
+-- MÃ¼Ã¾teri 5 (Ali) - 2 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(5, '2024-07-12', 9599.98, N'Kredi Kartı');
+(5, '2024-07-12', 9599.98, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (12, 18, 1, 8999.99),
 (12, 16, 2, 299.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(5, '2024-08-05', 239.97, N'Kapıda Ödeme');
+(5, '2024-08-05', 239.97, N'KapÃ½da Ã–deme');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (13, 13, 2, 89.99),
 (13, 15, 1, 69.99);
 GO
 
--- Müşteri 6 (Zeynep) - 2 sipariş
+-- MÃ¼Ã¾teri 6 (Zeynep) - 2 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(6, '2024-08-08', 1399.98, N'Banka Kartı');
+(6, '2024-08-08', 1399.98, N'Banka KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (14, 19, 2, 499.99),
 (14, 20, 1, 899.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(6, '2024-09-15', 2699.97, N'Kredi Kartı');
+(6, '2024-09-15', 2699.97, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (15, 6, 3, 599.99),
 (15, 8, 1, 1299.99);
 GO
 
--- Müşteri 7 (Can) - 2 sipariş
+-- MÃ¼Ã¾teri 7 (Can) - 2 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(7, '2024-06-30', 23899.98, N'Kredi Kartı');
+(7, '2024-06-30', 23899.98, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (16, 5, 1, 22999.99),
 (16, 12, 1, 899.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(7, '2024-08-18', 1699.98, N'Banka Kartı');
+(7, '2024-08-18', 1699.98, N'Banka KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (17, 21, 1, 1299.99),
 (17, 22, 1, 399.99);
 GO
 
--- Müşteri 8 (Elif) - 1 sipariş
+-- MÃ¼Ã¾teri 8 (Elif) - 1 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(8, '2024-07-08', 1499.99, N'Kredi Kartı');
+(8, '2024-07-08', 1499.99, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (18, 9, 1, 1499.99);
 GO
 
--- Müşteri 9 (Burak) - 2 sipariş
+-- MÃ¼Ã¾teri 9 (Burak) - 2 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(9, '2024-07-18', 22999.99, N'Kredi Kartı');
+(9, '2024-07-18', 22999.99, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (19, 5, 1, 22999.99);
 
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(9, '2024-08-25', 1799.97, N'Banka Kartı');
+(9, '2024-08-25', 1799.97, N'Banka KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (20, 16, 3, 299.99),
 (20, 17, 2, 599.99);
 GO
 
--- Müşteri 10 (Selin) - 1 sipariş
+-- MÃ¼Ã¾teri 10 (Selin) - 1 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(10, '2024-08-22', 6498.99, N'Kredi Kartı');
+(10, '2024-08-22', 6498.99, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (21, 23, 1, 3499.99),
 (21, 24, 1, 2999.99);
 GO
 
--- Müşteri 11 (Emre) - 1 sipariş
+-- MÃ¼Ã¾teri 11 (Emre) - 1 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
-(11, '2024-08-28', 7399.97, N'Kredi Kartı');
+(11, '2024-08-28', 7399.97, N'Kredi KartÃ½');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
 (22, 10, 1, 2499.99),
 (22, 11, 1, 3999.99),
 (22, 12, 1, 899.99);
 GO
 
--- Müşteri 12 (Deniz) - 1 sipariş
+-- MÃ¼Ã¾teri 12 (Deniz) - 1 sipariÃ¾
 INSERT INTO siparis (musteri_id, tarih, toplam_tutar, odeme_turu) VALUES 
 (12, '2024-09-20', 1699.98, N'Havale');
 INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES 
@@ -319,27 +318,27 @@ INSERT INTO siparis_detay (siparis_id, urun_id, adet, fiyat) VALUES
 GO
 
 -- =====================================================
--- VERİ GÜNCELLEME VE SİLME
+-- VERÃ GÃœNCELLEME VE SÃLME
 -- =====================================================
 
--- Ürün Fiyatı Güncelleme
+-- ÃœrÃ¼n FiyatÃ½ GÃ¼ncelleme
 UPDATE urun SET fiyat = 44999.99 WHERE id = 1;
 GO
 
--- Stok Güncellemesi (Satış Düşüşü)
+-- Stok GÃ¼ncellemesi (SatÃ½Ã¾ DÃ¼Ã¾Ã¼Ã¾Ã¼)
 UPDATE urun SET stok = stok - 1 WHERE id = 1;
 UPDATE urun SET stok = stok - 1 WHERE id = 4;
 GO
 
--- Müşteri Bilgisi Güncelleme
-UPDATE musteri SET sehir = N'İstanbul' WHERE id = 5;
+-- MÃ¼Ã¾teri Bilgisi GÃ¼ncelleme
+UPDATE musteri SET sehir = N'Ãstanbul' WHERE id = 5;
 GO
 
 -- =====================================================
 -- TEMEL SORGULAR
 -- =====================================================
 
--- 1. En çok sipariş veren 5 müşteri
+-- 1. En Ã§ok sipariÃ¾ veren 5 mÃ¼Ã¾teri
 SELECT TOP 5
     m.id,
     m.ad,
@@ -352,7 +351,7 @@ GROUP BY m.id, m.ad, m.soyad
 ORDER BY siparis_sayisi DESC;
 GO
 
--- 2. En çok satılan ürünler
+-- 2. En Ã§ok satÃ½lan Ã¼rÃ¼nler
 SELECT TOP 10
     u.id,
     u.ad AS urun_adi,
@@ -364,7 +363,7 @@ GROUP BY u.id, u.ad
 ORDER BY toplam_satis DESC;
 GO
 
--- 3. En yüksek cirolu satıcılar
+-- 3. En yÃ¼ksek cirolu satÃ½cÃ½lar
 SELECT
     sat.id,
     sat.ad AS satici_adi,
@@ -381,7 +380,7 @@ GO
 -- AGGREGATE & GROUP BY
 -- =====================================================
 
--- 4. Şehirlere göre müşteri sayısı
+-- 4. Ãehirlere gÃ¶re mÃ¼Ã¾teri sayÃ½sÃ½
 SELECT 
     sehir,
     COUNT(*) AS musteri_sayisi
@@ -390,7 +389,7 @@ GROUP BY sehir
 ORDER BY musteri_sayisi DESC;
 GO
 
--- 5. Kategori bazlı toplam satış
+-- 5. Kategori bazlÃ½ toplam satÃ½Ã¾
 SELECT
     k.ad AS kategori_adi,
     COUNT(sd.id) AS urun_satis_adedi,
@@ -402,7 +401,7 @@ GROUP BY k.id, k.ad
 ORDER BY toplam_satis_tutari DESC;
 GO
 
--- 6. Aya göre sipariş sayısı
+-- 6. Aya gÃ¶re sipariÃ¾ sayÃ½sÃ½
 SELECT
     FORMAT(tarih, 'yyyy-MM') AS ay,
     COUNT(*) AS siparis_sayisi,
@@ -416,7 +415,7 @@ GO
 -- JOIN SORGULARI
 -- =====================================================
 
--- 7. Siparişlerde müşteri bilgisi + ürün bilgisi + satıcı bilgisi
+-- 7. SipariÃ¾lerde mÃ¼Ã¾teri bilgisi + Ã¼rÃ¼n bilgisi + satÃ½cÃ½ bilgisi
 SELECT
     s.id AS siparis_id,
     s.tarih,
@@ -436,7 +435,7 @@ JOIN kategori k ON u.kategori_id = k.id
 ORDER BY s.tarih DESC;
 GO
 
--- 8. Hiç satılmamış ürünler
+-- 8. HiÃ§ satÃ½lmamÃ½Ã¾ Ã¼rÃ¼nler
 SELECT
     u.id,
     u.ad AS urun_adi,
@@ -449,7 +448,7 @@ JOIN kategori k ON u.kategori_id = k.id
 WHERE sd.id IS NULL;
 GO
 
--- 9. Hiç sipariş vermemiş müşteriler
+-- 9. HiÃ§ sipariÃ¾ vermemiÃ¾ mÃ¼Ã¾teriler
 SELECT
     m.id,
     m.ad,
@@ -463,10 +462,10 @@ WHERE s.id IS NULL;
 GO
 
 -- =====================================================
--- İLERİ SEVİYE SORGULAR
+-- ÃLERÃ SEVÃYE SORGULAR
 -- =====================================================
 
--- 10. En Çok Kazanç Sağlayan 3 Kategori
+-- 10. En Ã‡ok KazanÃ§ SaÃ°layan 3 Kategori
 SELECT TOP 3
     k.ad AS kategori_adi,
     COUNT(DISTINCT sd.siparis_id) AS siparis_sayisi,
@@ -479,7 +478,7 @@ GROUP BY k.id, k.ad
 ORDER BY toplam_kazanc DESC;
 GO
 
--- 11. Ortalama Sipariş Tutarını Geçen Siparişler
+-- 11. Ortalama SipariÃ¾ TutarÃ½nÃ½ GeÃ§en SipariÃ¾ler
 SELECT
     s.id,
     m.ad AS musteri_adi,
@@ -506,4 +505,5 @@ JOIN urun u ON sd.urun_id = u.id
 JOIN kategori k ON u.kategori_id = k.id
 WHERE k.ad = N'Elektronik'
 ORDER BY m.ad;
+
 GO
